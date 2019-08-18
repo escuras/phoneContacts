@@ -26,4 +26,13 @@ public enum Country {
     public String getValidRegex(){
         return validRegex;
     }
+
+    public static Country findCountry(String name){
+        for(Country country : Country.values()){
+            if(country.name().equalsIgnoreCase(name)){
+                return country;
+            }
+        }
+        return null;
+    }
 }

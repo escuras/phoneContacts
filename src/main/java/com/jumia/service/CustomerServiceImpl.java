@@ -6,14 +6,9 @@ import com.jumia.utilities.Country;
 import com.jumia.utilities.RegexUtility;
 import com.jumia.utilities.State;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,8 +18,8 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public Page<Customer> getAllCustomers(Pageable pageable) {
-        return paginate(pageable,(List<Customer>) customerRepository.findAll());
+    public List<Customer> getAllCustomers() {
+        return getCustomers();
     }
 
     private List<Customer> getCustomers() {
@@ -46,18 +41,12 @@ public class CustomerServiceImpl implements CustomerService {
         return RegexUtility.filterByCountry(getCustomers(), country);
     }
 
-    public Page<Customer> paginate(Pageable pageable, List<Customer> customers) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Customer> list;
-        if (customers.size() < startItem) {
-            list = new ArrayList<>();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, customers.size());
-            list = customers.subList(startItem, toIndex);
+    @Override
+    public List<Customer> getCustomersByCountry(String name) {
+        Country country = Country.findCountry(name);
+        if(country == null) {
+            return new ArrayList<>();
         }
-        Page<Customer> customerPage = new PageImpl<Customer>(list, PageRequest.of(currentPage, pageSize), customers.size());
-        return customerPage;
+        return getCustomersByCountry(country);
     }
 }
