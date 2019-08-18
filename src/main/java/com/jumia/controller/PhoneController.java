@@ -46,8 +46,8 @@ public class PhoneController {
         return "customers"; //view
     }
 
-    @GetMapping("/country/{country}")
-    public String customersByCountry(@PathVariable(value = "country", required = true) String country, Model model,
+    @GetMapping("/country")
+    public String customersByCountry(@RequestParam(value = "country", required = true) String country, Model model,
                                 @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(DEFAULT_PAGE);
         int pageSize = size.orElse(MAX_ROW_ITEMS);
@@ -80,6 +80,7 @@ public class PhoneController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+        model.addAttribute("countries", listCountries());
         if(country != null){
             model.addAttribute("country", country);
         }
@@ -101,6 +102,15 @@ public class PhoneController {
         }
         Page<Customer> customerPage = new PageImpl<Customer>(list, PageRequest.of(currentPage, pageSize), customers.size());
         return customerPage;
+    }
+
+    private List<String> listCountries(){
+        Country[] countries =  Country.values();
+        List<String> names = new ArrayList<>();
+        for(Country country : countries) {
+            names.add(country.name());
+        }
+        return names;
     }
 
 }

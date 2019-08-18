@@ -1,3 +1,9 @@
 .active {
-    background-color: blue;
+    background-color: #d2d2d2;
+    border: solid black 1px;
+}
+
+
+.inline {
+    display: inline-block;
 }

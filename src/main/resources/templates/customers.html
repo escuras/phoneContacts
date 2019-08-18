@@ -6,7 +6,6 @@
     <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/styles/styles.css}"/>
 </head>
-
 <body style="text-align:center">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -38,41 +37,63 @@
     </tr>
     </tbody>
 </table>
-<div th:if="${customerPage.totalPages > 0 && country == null && state == null}" class="pagination"
-     th:each="pageNumber : ${pageNumbers}  " style="display: inline-block;">
-    <a th:href="@{/(size=${customerPage.size}, page=${pageNumber})}"
-       th:text=${pageNumber}
-       th:class="${pageNumber == customerPage.number + 1} ? active : inactive"></a>
-</div>
-<div th:if="${customerPage.totalPages > 0 && country != null}" class="pagination"
-     th:each="pageNumber : ${pageNumbers}  " style="display: inline-block;">
-    <a th:href="@{'/country/{country}?size={size}&page={page}'(country=${country},
-    size=${customerPage.size}, page=${pageNumber})}"
-       th:text=${pageNumber}
-       th:class="${pageNumber == customerPage.number + 1} ? active : inactive"></a>
-</div>
-<div th:if="${customerPage.totalPages > 0 && state != null}" class="pagination"
-     th:each="pageNumber : ${pageNumbers}" style="display: inline-block;">
-    <a th:href="@{'/state/{state}?size={size}&page={page}'(state=${state}, size=${customerPage.size},
-    page=${pageNumber})}"
-       th:text=${pageNumber}
-       th:class="${pageNumber == customerPage.number + 1} ? active : inactive" class="page-link"></a>
-</div>
+
+<ul>
+    <li th:if="${customerPage.totalPages > 0 && country == null && state == null}"
+        th:each="pageNumber : ${pageNumbers}  " class="inline">
+        <a th:href="@{/(size=${customerPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber == customerPage.number + 1} ? active : inactive" style="margin: 10px"></a>
+    </li>
+</ul>
+
+<ul>
+    <li th:if="${customerPage.totalPages > 0 && country != null}"
+        th:each="pageNumber : ${pageNumbers}  " class="inline">
+        <a th:href="@{'/country/{country}?size={size}&page={page}'(country=${country}, size=${customerPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber == customerPage.number + 1} ? active : inactive " style="margin: 10px"></a>
+    </li>
+</ul>
+
+<ul>
+    <li th:if="${customerPage.totalPages > 0 && state != null}"
+        th:each="pageNumber : ${pageNumbers}  " style="display: inline-block;">
+        <a th:href="@{'/state/{state}?size={size}&page={page}'(state=${state}, size=${customerPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber == customerPage.number + 1} ? active : inactive " style="margin: 10px"></a>
+    </li>
+</ul>
+
 <div>
-     <span style="display: inline-block;">
+    <span class="inline">
     <form data-th-action="@{'/'}" data-th-object="${model}" method="get">
         <button type="submit" class="btn btn-primary">All contacts</button>
     </form>
     </span>
-    <span style="display: inline-block;">
+    <span class="inline">
     <form data-th-action="@{'/state/valid'}" data-th-object="${model}" method="get">
         <button type="submit" class="btn btn-success">Valid contacts</button>
     </form>
     </span>
-    <span style="display: inline-block;">
+    <span class="inline">
     <form data-th-action="@{'/state/invalid'}" data-th-object="${model}" method="get">
         <button type="submit" class="btn btn-danger">Invalid contacts</button>
     </form>
+    </span>
+    <span class="inline">
+        <form data-th-action="@{/country}" data-th-object="${model}" method="get">
+            <span class="inline">
+            <select id="country" name="country" class="form-control" style="margin-top:2px">
+                <option th:each="c : ${countries}" th:value="${c}" th:text="${c}" th:selected="${c.equals(country)}">
+                </option>
+            </select>
+            </span>
+             <span class="inline">
+                <button type="submit" onclick="" class="btn btn-info">Filter by country</button>
+            </span>
+
+        </form>
     </span>
 </div>
 
