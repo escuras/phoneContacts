@@ -1,0 +1,11 @@
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/utilities/Country.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/utilities/State.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/StartApplication.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/model/Customer.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/service/CustomerServiceImpl.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/controller/PhoneController.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/service/CustomerService.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/utilities/RegexUtility.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/config/SQLiteDialect.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/repository/CustomerRepository.java
+/home/toze/Documentos/phoneValidate/src/main/java/com/jumia/config/DbConfig.java
